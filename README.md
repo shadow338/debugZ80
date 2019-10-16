@@ -3,9 +3,9 @@ debugZ80 v0.82
 
 (C) 2019 Rui Fernando Ferreira Ribeiro
 
-Z80 command line debugger for Linux/Mac/BSD systems.
+Z80 command line debugger for Linux/Mac/BSD.
 
-MS-DOS DEBUG.EXE look alike for Z80/ZX Spectrum programs.
+MS-DOS DEBUG.EXE look alike for Z80/ZX Spectrum assembly.
 
 Companion of QtSpecem https://github.com/ruyrybeyro/QtSpecem ; directory has to be on the same root level of QtSpecem sources for it to compile.
 
