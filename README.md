@@ -3,7 +3,7 @@ debugZ80 v0.82
 
 (C) 2019 Rui Fernando Ferreira Ribeiro
 
-Z80 command line debugger.
+Z80 command line debugger for Linux/Mac/BSD systems.
 
 MS-DOS DEBUG.EXE look alike for Z80/ZX Spectrum programs.
 
