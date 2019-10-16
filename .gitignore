@@ -2,7 +2,6 @@
 *.o
 qrc_*
 moc_*
-MAkefile
 .qmake.stash
 QtSpecem.app
 
