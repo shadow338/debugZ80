@@ -11,7 +11,7 @@ Companion of QtSpecem. Directory has to be on the same root level of QtSpecem so
 Real time console mode debugger. Still very beta. Posted here as a demo, code has to be improved and arranged.
 
 
-"Features":
+FEATURES
 
 The trace/running logic is on debugz80 side. It is always slower than being on the emulator side.
 
@@ -21,11 +21,11 @@ Breakpoints.
 
 Maybe addopting the =XXXX syntax of DEBUG.EXE.
 
-For compiling:
+COMPILE
 
 make
 
-Usage:
+USAGE
 
 ./debugz80
 
