@@ -35,22 +35,37 @@ Has to be launched *after* QtSpecem. z80tab.txt	and zx_labels.txt have to be on 
 Commands:
    
  T [XXXX]  - Trace
+
  P [XXXX]  - Proceed
+
  E         - Execute until RET
+
  G [XXXX]  - Go
+
  Q         - Quit
+
  U [XXXX]  - Dissassembly
+
  D [XXXX]  - Dump
+
  R         - show registers
+
  R YY XXXX - load 16-bit vars
+
  R Y XX    - load 8-bit vars
+
  ?         - Help
+
  ENTER     - Repeats last command
 
  --- XXXX four hexa digits
+
  --- XX   two  hexa digits
+
  --- YY   Z80 AF BC DE HL IX IY SP or PC
+
  --- Y    Z80 A B C D E H L
+
 
 T - step-by-step trace (all instruction, interrup routines also).
 
