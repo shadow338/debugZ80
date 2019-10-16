@@ -7,9 +7,9 @@ Z80 command line debugger.
 
 MS-DOS DEBUG.EXE look alike for Z80/ZX Spectrum programs.
 
-Companion of QtSpecem. Directory has to be on the same root level of QtSpecem sources for it to compile.
+Companion of QtSpecem https://github.com/ruyrybeyro/QtSpecem ; directory has to be on the same root level of QtSpecem sources for it to compile.
 
-Real time console mode debugger. Still very beta. Posted here as a demo, code has to be improved and arranged.
+Real time console mode debugger. Still very alpha code. Posted here as a demo, code has to be improved and arranged.
 
 
 FEATURES
