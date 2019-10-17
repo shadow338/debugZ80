@@ -1,5 +1,5 @@
 
-debugZ80 v0.82
+debugZ80 v0.83
 
 (C) 2019 Rui Fernando Ferreira Ribeiro
 
@@ -48,11 +48,13 @@ Commands:
 
  D [XXXX]  - Dump
 
- R         - show registers
+ R         - Show registers
 
- R YY XXXX - load 16-bit vars
+ R YY XXXX - Load 16-bit vars
 
- R Y XX    - load 8-bit vars
+ R Y XX    - Load 8-bit vars
+
+ B         - List ZX BASIC program
 
  ?         - Help
 
@@ -86,6 +88,8 @@ R - Show Z80 registers or modify them.
 ? - Shows help.
 
 R - Repeats last command.
+
+B - Lists ZX BASIC program.
 
 Example session:
 

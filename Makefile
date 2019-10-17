@@ -39,7 +39,8 @@ STRIP         = strip
 OBJECTS_DIR   = ./
 
 
-SOURCES       = cpuregs.c \
+SOURCES       = basic.c \
+		cpuregs.c \
 		debugz80.c \
 		dissbl.c \
 		flags.c \
@@ -48,7 +49,8 @@ SOURCES       = cpuregs.c \
 		mem.c \
 		panic.c \
 		shm_client.c 
-OBJECTS       = cpuregs.o \
+OBJECTS       = basic.o \
+		cpuregs.o \
 		debugz80.o \
 		dissbl.o \
 		flags.o \
@@ -57,7 +59,8 @@ OBJECTS       = cpuregs.o \
 		mem.o \
 		panic.o \
 		shm_client.o
-DIST          = cpuregs.c \
+DIST          = basic.c \
+		cpuregs.c \
 		debugz80.c \
 		dissbl.c \
 		flags.c \
@@ -92,7 +95,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents $(DISTDIR)/
-	$(COPY_FILE) --parents cpuregs.c debugz80.c dissbl.c flags.c hexdump.c main.c mem.c panic.c shm_client.c $(DISTDIR)/
+	$(COPY_FILE) --parents basic.c cpuregs.c debugz80.c dissbl.c flags.c hexdump.c main.c mem.c panic.c shm_client.c $(DISTDIR)/
 
 compiler_clean: clean
 
@@ -117,6 +120,12 @@ compiler_rcc_clean:
 	-$(DEL_FILE) 
 
 ####### Compile
+
+basic.o: basic.c ../QtSpecem/h/quirks.h \
+		../QtSpecem/z80core/env.h \
+		../QtSpecem/z80core/z80.h \
+		../QtSpecem/z80core/iglobal.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o basic.o basic.c
 
 cpuregs.o: cpuregs.c ../QtSpecem/h/quirks.h \
 		../QtSpecem/z80core/env.h \
