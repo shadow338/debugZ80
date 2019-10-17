@@ -4,4 +4,5 @@ qrc_*
 moc_*
 .qmake.stash
 QtSpecem.app
-
+a.out
+debugz80
