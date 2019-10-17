@@ -139,7 +139,10 @@ void list_basic()
           if (c >= 0xA5)
              printf("%s ", tokens[c - 0xA5]);
           else
-             putchar(c);
+          {
+             if (c >= 32)
+                putchar(c);
+          }
           }
        }
        pos++;
