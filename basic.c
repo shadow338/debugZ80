@@ -107,14 +107,26 @@ char tokens[][10] =
 // NEWLINE (0x76)
 // When a numeric constant is included in the text of a BASIC line, an ASCII string displaying the constant value will be inserted, followed by the token 0x7E, and the next 5 bytes are the value of the constant in floating point format.
 
+// "Small integers have a special representation in which the first byte is 0, the second is a sign byte (0 or FFh) and the third and fourth are the integer in twos complement form, the less significant byte first."
+
 void list_basic()
 {
-   int prog, vars;
+   int prog, vars, nxtlin;
    int line, len, pos;
    unsigned char c;
  
-   prog = readword(23635);
-   vars = readword(23627);
+   prog   = readword(23635);
+   vars   = readword(23627);
+   nxtlin = readword(23637);
+
+   printf("(PROG) %04X (VARS) %04X (NXTLIN) %04X\n\n", prog, vars, nxtlin);
+
+   if (nxtlin > vars)
+   {
+      printf("BASIC vars have been tampered with?\n");
+      printf("Listing may not make sense\n\n");
+      vars = nxtlin;
+   }
 
    pos = prog;
    while (pos < vars )
@@ -129,10 +141,15 @@ void list_basic()
           c = readbyte(pos++);
           if (c == 0x0E)
           {
-                pos += 5;
-                len -= 5;
-                if ( len < 0 )
-                   break;
+             // positive integers are often messed up in games
+             if ( (readbyte(pos) == 0) && (readbyte(pos+1) == 0) )
+             {
+                printf("[int:%d,$%04X]", readword(pos+2), readword(pos+2) );
+             }
+             pos += 5;
+             if ( len < 0 )
+                break;
+             len -= 5;
           }
           else
           {
