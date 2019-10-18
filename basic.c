@@ -121,12 +121,12 @@ void list_basic()
 
    printf("(PROG) %04X (VARS) %04X (NXTLIN) %04X\n\n", prog, vars, nxtlin);
 
-   if (nxtlin > vars)
-   {
-      printf("BASIC vars have been tampered with?\n");
-      printf("Listing may not make sense\n\n");
-      vars = nxtlin;
-   }
+//   if (nxtlin > vars)
+//   {
+//      printf("BASIC vars have been tampered with?\n");
+//      printf("Listing may not make sense\n\n");
+//      vars = nxtlin;
+//   }
 
    pos = prog;
    while (pos < vars )
