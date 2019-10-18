@@ -92,7 +92,7 @@ void show_system_vars()
 
    for( i=0; sys_vars[i].addr != 0 ; i++ )
    {
-      printf("%04X %7s ", sys_vars[i].addr, sys_vars[i].name );
+      printf("%04X %-7s ", sys_vars[i].addr, sys_vars[i].name );
       switch( sys_vars[i].n_bytes )
       {
          case 1:
