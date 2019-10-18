@@ -5,7 +5,7 @@
 
 
 unsigned short draw_cpuregs();
-void list_basic();
+void list_basic(char * s);
 
 #include "../QtSpecem/z80core/z80.h"
 #include "../QtSpecem/z80core/iglobal.h"
@@ -72,6 +72,7 @@ void show_help(void)
    printf(" R YY XXXX - Load 16-bit vars\n");
    printf(" R Y XX    - Load 8-bit vars\n");
    printf(" B         - List ZX BASIC program\n");
+   printf(" B vars    - List system variables\n");
    printf(" ?         - Help\n");
    printf(" ENTER     - Repeats last command\n");
    printf("\n");
@@ -357,7 +358,7 @@ void do_commands(char * str)
                 break;
 
 	case 'B':
-		list_basic();
+		list_basic(token[1]);
 		break;
 
 	case '?':

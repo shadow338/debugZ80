@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../QtSpecem/h/quirks.h"
 #include "../QtSpecem/z80core/env.h"
 
+void show_system_vars();
 
 char tokens[][10] =
 {
@@ -109,11 +111,17 @@ char tokens[][10] =
 
 // "Small integers have a special representation in which the first byte is 0, the second is a sign byte (0 or FFh) and the third and fourth are the integer in twos complement form, the less significant byte first."
 
-void list_basic()
+void list_basic(char * s)
 {
    int prog, vars, nxtlin;
    int line, len, pos;
    unsigned char c;
+
+   if ( (s != NULL) && !strncmp(s, "vars", 4) )
+   {
+      show_system_vars();
+      return;
+   }
  
    prog   = readword(23635);
    vars   = readword(23627);

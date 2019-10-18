@@ -1,5 +1,5 @@
 
-debugZ80 v0.83
+debugZ80 v0.84
 
 (C) 2019 Rui Fernando Ferreira Ribeiro
 
@@ -55,6 +55,8 @@ Commands:
  R Y XX    - Load 8-bit vars
 
  B         - List ZX BASIC program
+
+ B vars    - List system variables
 
  ?         - Help
 

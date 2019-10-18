@@ -48,7 +48,8 @@ SOURCES       = basic.c \
 		main.c \
 		mem.c \
 		panic.c \
-		shm_client.c 
+		shm_client.c \
+		vars.c
 OBJECTS       = basic.o \
 		cpuregs.o \
 		debugz80.o \
@@ -58,7 +59,8 @@ OBJECTS       = basic.o \
 		main.o \
 		mem.o \
 		panic.o \
-		shm_client.o
+		shm_client.o \
+		vars.o
 DIST          = basic.c \
 		cpuregs.c \
 		debugz80.c \
@@ -68,7 +70,8 @@ DIST          = basic.c \
 		main.c \
 		mem.c \
 		panic.c \
-		shm_client.c
+		shm_client.c \
+		vars.c
 DESTDIR       = 
 TARGET        = debugz80
 
@@ -95,7 +98,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents $(DISTDIR)/
-	$(COPY_FILE) --parents basic.c cpuregs.c debugz80.c dissbl.c flags.c hexdump.c main.c mem.c panic.c shm_client.c $(DISTDIR)/
+	$(COPY_FILE) --parents basic.c cpuregs.c debugz80.c dissbl.c flags.c hexdump.c main.c mem.c panic.c shm_client.c vars.c $(DISTDIR)/
 
 compiler_clean: clean
 
@@ -176,6 +179,12 @@ shm_client.o: shm_client.c ../QtSpecem/h/quirks.h \
 		../QtSpecem/z80core/z80.h \
 		../QtSpecem/z80core/iglobal.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o shm_client.o shm_client.c
+
+vars.o: vars.c ../QtSpecem/h/quirks.h \
+		../QtSpecem/z80core/env.h \
+		../QtSpecem/z80core/z80.h \
+		../QtSpecem/z80core/iglobal.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o vars.o vars.c
 
 ####### Install
 
