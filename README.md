@@ -22,7 +22,9 @@ Breakpoints.
 
 Maybe addopting the =XXXX syntax of DEBUG.EXE.
 
-COMPILE
+Doing breakpoints/proceed/move after ret to the emulation side. The remote coordination makes it too slow.
+
+COMPILING
 
 make
 
