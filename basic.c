@@ -135,11 +135,11 @@ void list_basic(char * s)
    if ( !pos )
       pos = prog;
 
-   while (pos < vars || (cnt_line != MAX_LINES ) )
+   while ( (pos < vars) && (cnt_line != MAX_LINES ) )
    {
        line = readbyte(pos++) * 256;
        line += readbyte(pos++);
-       printf("%d ", line);
+       printf("[$%04X]%d ", pos-2, line);
        len = readword(pos++);
        pos++;
        while (--len > 0 )
