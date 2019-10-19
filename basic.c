@@ -120,7 +120,7 @@ void list_basic(char * s)
    static int pos = 0;
    unsigned char c;
 
-   if ( (s != NULL) && !strncmp(s, "vars", 4) )
+   if ( (s != NULL) && !strncmp(s, "sysvars", 7) )
    {
       show_system_vars();
       return;

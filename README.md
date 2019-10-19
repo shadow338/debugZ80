@@ -58,7 +58,7 @@ Commands:
 
  B         - List ZX BASIC program
 
- B vars    - List system variables
+ B sysvars - List system variables
 
  ?         - Help
 
