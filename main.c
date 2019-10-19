@@ -394,6 +394,9 @@ int main()
    init_shm_client();
 
    strcpy(old_string, "");
+
+   addr = PC;
+
    while (1)
    {
       if (!proceed_mode && !return_mode)
