@@ -6,6 +6,8 @@
 #include "../QtSpecem/h/quirks.h"
 #include "../QtSpecem/z80core/env.h"
 
+#define MAX_LINES 20
+
 void show_system_vars();
 
 char tokens[][10] =
@@ -114,7 +116,8 @@ char tokens[][10] =
 void list_basic(char * s)
 {
    int prog, vars, nxtlin;
-   int line, len, pos;
+   int line, len, cnt_line = 0;
+   static int pos = 0;
    unsigned char c;
 
    if ( (s != NULL) && !strncmp(s, "vars", 4) )
@@ -129,15 +132,10 @@ void list_basic(char * s)
 
    printf("(PROG) %04X (VARS) %04X (NXTLIN) %04X\n\n", prog, vars, nxtlin);
 
-//   if (nxtlin > vars)
-//   {
-//      printf("BASIC vars have been tampered with?\n");
-//      printf("Listing may not make sense\n\n");
-//      vars = nxtlin;
-//   }
+   if ( !pos )
+      pos = prog;
 
-   pos = prog;
-   while (pos < vars )
+   while (pos < vars || (cnt_line != MAX_LINES ) )
    {
        line = readbyte(pos++) * 256;
        line += readbyte(pos++);
@@ -171,6 +169,10 @@ void list_basic(char * s)
           }
        }
        pos++;
+       cnt_line++;
        printf("\n");
    }  
+
+   if ( (cnt_line != MAX_LINES ) || (prog == vars) )
+      pos = 0;
 }
