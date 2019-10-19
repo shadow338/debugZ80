@@ -275,7 +275,7 @@ void do_commands(char * str)
 {
     char command;
 
-    char * pch, * token[6];
+    char * pch, * token[8];
     int i = 0;
     int  addr_arg;
 
