@@ -6,11 +6,12 @@
 #include "../QtSpecem/h/quirks.h"
 #include "../QtSpecem/z80core/env.h"
 
+// array of system variables
 struct sys_vars {
-   int addr;
-   int n_bytes;
-   char name[10];
-   char desc[80];
+   int addr;		// Address in RAM
+   int n_bytes;		// number of bytes
+   char name[10];	// memmonic name
+   char desc[80];	// description
 } sys_vars [] = 
 {
 { 0x5C00,8,"KSTATE","Used in reading the keyboard" },
@@ -93,20 +94,26 @@ void show_system_vars()
    for( i=0; sys_vars[i].addr != 0 ; i++ )
    {
       printf("%04X %-7s ", sys_vars[i].addr, sys_vars[i].name );
+
+      // handling of system variables display, depending on size
       switch( sys_vars[i].n_bytes )
       {
-         case 1:
+         case 1: // 1 byte
                 printf("  %02X ", readbyte(sys_vars[i].addr) );
                 break;
-         case 2:
+
+         case 2: // 1 word
                 printf("%04X ", readword(sys_vars[i].addr) );
                 break;
-         default:
+	 
+         default: // several bytes
                 pos = sys_vars[i].addr; 
                 for(j = 0 ; j < sys_vars[i].n_bytes ; j++ )
                    printf("%02X ", readbyte(pos) );
                 break;
       }
+
       printf("%s\n", sys_vars[i].desc );
    }
 }
+

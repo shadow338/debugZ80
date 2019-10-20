@@ -10,6 +10,7 @@
 
 void show_system_vars();
 
+// ZX Spectrum BASIC tokens as they are in ROM
 char tokens[][10] =
 {
    "RND",
@@ -125,9 +126,13 @@ void list_basic(char * s)
       show_system_vars();
       return;
    }
- 
+   
+   // PROG is the special system variable that tells us where the BASIC program starts in memory 
    prog   = readword(23635);
+   // VARS is the special system variable for storing where BASIC ends and program variables
+   // start 
    vars   = readword(23627);
+   // NEXTLIN points to the BASIC line being ran
    nxtlin = readword(23637);
 
    printf("(PROG) %04X (VARS) %04X (NXTLIN) %04X\n\n", prog, vars, nxtlin);
@@ -135,16 +140,24 @@ void list_basic(char * s)
    if ( !pos )
       pos = prog;
 
+   // show BASIC lines until reaching (VARS) or MAX_LINES
    while ( (pos < vars) && (cnt_line != MAX_LINES ) )
    {
+       // line is in high-endian format
        line = readbyte(pos++) * 256;
        line += readbyte(pos++);
+
+       // print memory position of start of line and line number
        printf("[mem:$%04X]\n%d ", pos-2, line);
+
        len = readword(pos++);
        pos++;
+
        while (--len > 0 )
        {
           c = readbyte(pos++);
+
+          // If we find the marker for integer/float internal representation
           if (c == 0x0E)
           {
              // positive integers are often messed up in games
@@ -152,27 +165,38 @@ void list_basic(char * s)
              {
                 printf("[int:%d,$%04X]", readword(pos+2), readword(pos+2) );
              }
+
+	     // skip 5 bytes of BASIC's internal number representation
              pos += 5;
+             len -= 5;
+             
+             // failsafe for a mal-formed BASIC line
              if ( len < 0 )
                 break;
-             len -= 5;
           }
           else
           {
-          if (c >= 0xA5)
-             printf("%s ", tokens[c - 0xA5]);
-          else
-          {
-             if (c >= 32)
-                putchar(c);
-          }
+             // from 0xA5 to 0xFF we are printing tokens
+             if (c >= 0xA5)
+                printf("%s ", tokens[c - 0xA5]);
+             else
+             {
+                // bellow " ", we do not want to print unprintable
+                // control characters
+                if (c >= 32)
+                   putchar(c);
+             }
           }
        }
-       pos++;
+       
+       pos++; // point to next byte
        cnt_line++;
-       printf("\n");
+       printf("\n"); // end of BASIC line
    }  
 
+   // if we reached the end of the BASIC program
+   // point it to the beggining again
    if ( (cnt_line != MAX_LINES ) || (prog == vars) )
-      pos = 0;
+      pos = prog;
 }
+

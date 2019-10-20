@@ -270,7 +270,7 @@ void register_value(char * reg, char * value)
       }
 }
 
-
+// parse user line command
 void do_commands(char * str)
 {
     char command;
@@ -279,13 +279,17 @@ void do_commands(char * str)
     int i = 0;
     int  addr_arg;
 
+    // field separator por extracting tokens is " "
     pch = strtok (str," ");
+
+    // create array of tokens
     while (pch != NULL)
     {
        token[i++] = pch;
        pch = strtok (NULL, " ");
     }
-
+   
+    // two to simply testing / parameter passing
     token[i++] = NULL;
     token[i++] = NULL;
 
@@ -388,57 +392,70 @@ void init_shm_client()
 
 int main()
 {
-   char string[256]; 
-   char old_string[256];
+   char string[256];      // actual command line
+   char old_string[256];  // copy of command line for replaying it
 
-   init_shm_client();
+   init_shm_client();	  // attach to memory of QtSpecem 
 
    strcpy(old_string, "");
 
+   // address for debugging pointing to the corrent Z80 PC
    addr = PC;
 
    while (1)
    {
+      // if not in debugging mode
       if (!proceed_mode && !return_mode)
       {
-         printf("- "); 
-         fgets (string, 255, stdin);
+         printf("- ");                    // print prompt
+
+         fgets (string, 255, stdin);      // wait for command line
   
-         if ( strcmp(string, "\n") ) 
+         if ( strcmp(string, "\n") )      // if not empty
          {
-             strcpy(old_string, string);
-             do_commands(string); 
+             strcpy(old_string, string);  // copy new command line
+             do_commands(string); 	  // execute it
          }
          else
-            do_commands(old_string);
+            do_commands(old_string);     // if empty, repeast last line
       }
       else
       {
+         // handle P/proceed mode
          if (proceed_mode)
          {
             if (TraceOn == 2)
             {
+               // if PC the same as last time we were here
                if ( PC == old_PC )
-                 TraceOn = 3;
+                 TraceOn = 3;   
                else
+                  // if not next instruct and SP lower in stack than we need
                   if ( ( PC != next_PC ) && (SP < old_SP ) )
                      TraceOn = 3;
                   else
-                     proceed_mode = 0;
+                     proceed_mode = 0; // disable proceed mode
             }
          }
+
+	 // handle E/return after RET
          if (return_mode)
          {
             if (TraceOn == 2)
             {
+               // if Z80 PC was in the address in the stack
                if ( PC == pSP )
                {
                   draw_cpuregs();
+
+		  // disable E mode
                   return_mode = 0;
                }
                else
                {
+                  // save the top address on stack
                   pSP = readword(SP);
+                  // continue debugging
                   TraceOn = 3;
                }
             }
