@@ -139,7 +139,7 @@ void list_basic(char * s)
    {
        line = readbyte(pos++) * 256;
        line += readbyte(pos++);
-       printf("[mem:$%04X]%d ", pos-2, line);
+       printf("[mem:$%04X]\n%d ", pos-2, line);
        len = readword(pos++);
        pos++;
        while (--len > 0 )
