@@ -109,7 +109,6 @@ clean:	compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r debugz80
-	-$(DEL_FILE) Makefile
 
 
 ####### Sub-libraries

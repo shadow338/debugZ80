@@ -104,12 +104,11 @@ compiler_clean: clean
 
 clean:	compiler_clean  
 	-$(DEL_FILE) $(OBJECTS)
-	-$(DEL_FILE) *~ core *.core
+	-$(DEL_FILE) *~ core *.core 
 
 
 distclean: clean 
 	-$(DEL_FILE) -r debugz80
-	-$(DEL_FILE) Makefile
 
 
 ####### Sub-libraries
