@@ -26,6 +26,9 @@ Doing breakpoints/proceed/move after ret to the emulation side. The remote coord
 
 COMPILING
 
+For compiling in Linux/with gcc   do: cp Makefile.linux Makefile
+For compiling in MacOS/with clang do: cp Makefile.MacOS Makefile
+
 make
 
 USAGE
