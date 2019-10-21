@@ -72,7 +72,7 @@ void show_help(void)
    printf(" R YY XXXX - Load 16-bit vars\n");
    printf(" R Y XX    - Load 8-bit vars\n");
    printf(" B         - List ZX BASIC program\n");
-   printf(" B vars    - List system variables\n");
+   printf(" B sysvars - List system variables\n");
    printf(" ?         - Help\n");
    printf(" ENTER     - Repeats last command\n");
    printf("\n");

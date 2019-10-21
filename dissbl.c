@@ -219,7 +219,8 @@ static void Init_labels()
    unsigned short line = 0, str_len, pos = 5, tmp;
    char buffer[255];
 
-   if( !(label_table = (char **)calloc(256, sizeof(char *)) ) )
+   // alloc label pointers for the 64K addresses
+   if( !(label_table = (char **)calloc(65536, sizeof(char *)) ) )
    {  
       Panic("Insuficient memory");
    }
