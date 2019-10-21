@@ -24,6 +24,8 @@ Maybe addopting the =XXXX syntax of DEBUG.EXE.
 
 Doing breakpoints/proceed/move after ret to the emulation side. The remote coordination makes it too slow.
 
+Integrating external files in the binary.
+
 COMPILING
 
 For compiling in Linux/with gcc   do: cp Makefile.linux Makefile
