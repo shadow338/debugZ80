@@ -85,7 +85,7 @@ void show_help(void)
 // print dissassembly in address
 void unassemble(int addr_arg)
 {
-   char * s, *p, *var_label, *address_label;
+   char * s, *p = NULL, *var_label, *address_label;
    int i, cnt;
 
    // addr address to disassembly from
@@ -100,7 +100,6 @@ void unassemble(int addr_arg)
       // call the dissassembler
       // *s = len of opcode in bytes 
       s = ldissbl(addr);
-
       // print address
       printf("%04X ", addr);
 
@@ -151,7 +150,7 @@ void unassemble(int addr_arg)
       address_label = *(label_table + addr);
 
       // do we need to print a comment?
-      if ( (var_label != NULL ) || (address_label != NULL ) )
+      if ( ( (var_label != NULL ) || (address_label != NULL ) ) && (p != NULL) )
       {
          printf(" ; ");          // comments in Z80 assembly begin with ;
 
