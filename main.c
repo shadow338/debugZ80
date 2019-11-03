@@ -61,20 +61,21 @@ USHORT pSP;
 
 void show_help(void)
 {
-   printf(" T [XXXX]  - Trace\n");
-   printf(" P [XXXX]  - Proceed\n");
-   printf(" E         - Execute until RET\n");
-   printf(" G [XXXX]  - Go\n");
-   printf(" Q         - Quit\n");
-   printf(" U [XXXX]  - Dissassembly\n");
-   printf(" D [XXXX]  - Dump\n");
-   printf(" R         - Show registers\n");
-   printf(" R YY XXXX - Load 16-bit vars\n");
-   printf(" R Y XX    - Load 8-bit vars\n");
-   printf(" B         - List ZX BASIC program\n");
-   printf(" B sysvars - List system variables\n");
-   printf(" ?         - Help\n");
-   printf(" ENTER     - Repeats last command\n");
+   printf(" T [XXXX]   - Trace\n");
+   printf(" P [XXXX]   - Proceed\n");
+   printf(" E          - Execute until RET\n");
+   printf(" G [XXXX]   - Go\n");
+   printf(" Q          - Quit\n");
+   printf(" U [XXXX]   - Dissassembly\n");
+   printf(" D [XXXX]   - Dump\n");
+   printf(" R          - Show registers\n");
+   printf(" R YY XXXX  - Load 16-bit vars\n");
+   printf(" R Y XX     - Load 8-bit vars\n");
+   printf(" B          - List ZX BASIC program\n");
+   printf(" B sysvars  - List system variables\n");
+   printf(" K XXXX XX  - Poke addr with byte\n");
+   printf(" ?          - Help\n");
+   printf(" ENTER      - Repeats last command\n");
    printf("\n");
    printf(" --- XXXX four hexa digits\n");
    printf(" --- XX   two  hexa digits\n");
@@ -269,6 +270,15 @@ void register_value(char * reg, char * value)
       }
 }
 
+void poke(char * byte, char * v)
+{
+   int addr, value;
+
+   addr  = (int)strtol(byte, NULL, 16);
+   value = (int)strtol(v, NULL, 16);
+   writebyte(addr, value);
+}
+
 // parse user line command
 void do_commands(char * str)
 {
@@ -359,6 +369,9 @@ void do_commands(char * str)
         case 'R':
                 register_value(token[1], token[2]);
                 break;
+
+        case 'K':
+		poke(token[1], token[2]);
 
 	case 'B':
 		list_basic(token[1]);

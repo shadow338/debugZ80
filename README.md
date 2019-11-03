@@ -65,6 +65,8 @@ Commands:
 
  B sysvars - List system variables
 
+K XXXX XX  - Poke addr with byte
+
  ?         - Help
 
  ENTER     - Repeats last command
