@@ -11,6 +11,8 @@ Companion of QtSpecem https://github.com/ruyrybeyro/QtSpecem ; directory has to 
 
 Real time console mode debugger. Still very alpha code. Posted here as a demo, code has to be improved and arranged.
 
+Tested in Mac OS Catalina and Debian 10.
+
 
 FEATURES
 
