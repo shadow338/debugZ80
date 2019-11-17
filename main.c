@@ -372,6 +372,7 @@ void do_commands(char * str)
 
         case 'K':
 		poke(token[1], token[2]);
+                break;
 
 	case 'B':
 		list_basic(token[1]);

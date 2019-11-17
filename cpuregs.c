@@ -27,7 +27,7 @@ char board[16][29] =
    " IX 0000 IFF1=0 (sp+4) 0000 ",
    " IY 0000 IFF2=0 (sp+2) 0000 ",
    " SP 0000 IM  =0 (sp)   0000 ",
-   " PC 0000                    ",
+   " PC 0000 T=                 ",
    " R  00                      ",   /* HEX opcodes */
    " I  00                      ",
    "                            ",   /* assembly instruction */
@@ -126,6 +126,7 @@ unsigned short draw_cpuregs()
    if(OldSP != SP)
       bin2hex16(board[10] + 4, OldSP = SP);
    bin2hex16(board[11] + 4, (USHORT)PC);
+   sprintf(board[11] + 11, "%ld ", clock_ticks );
    bin2hex8(board[12] + 4, R);
    if(OldI != I)
       bin2hex8(board[13] + 4, OldI = I);
