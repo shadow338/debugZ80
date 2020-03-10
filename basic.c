@@ -119,7 +119,7 @@ void list_basic(char * s)
    int prog, vars, nxtlin;
    int line, len, cnt_line = 0;
    static int pos = 0;
-   unsigned char c;
+   unsigned char c, oldc;
 
    if ( (s != NULL) && !strncmp(s, "sysvars", 7) )
    {
@@ -152,13 +152,14 @@ void list_basic(char * s)
 
        len = readword(pos++);
        pos++;
-
+       c = 0;
        while (--len > 0 )
        {
+          oldc = c;
           c = readbyte(pos++);
 
           // If we find the marker for integer/float internal representation
-          if (c == 0x0E)
+          if ( (c == 0x0E) && (oldc >='0' && oldc <= '9'))
           {
              // positive integers are often messed up in games
              if ( (readbyte(pos) == 0) && (readbyte(pos+1) == 0) )
@@ -185,6 +186,8 @@ void list_basic(char * s)
                 // control characters
                 if (c >= 32)
                    putchar(c);
+                else
+                   putchar('.');
              }
           }
        }

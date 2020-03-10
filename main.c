@@ -287,6 +287,7 @@ void do_commands(char * str)
     char * pch, * token[8];
     int i = 0;
     int  addr_arg;
+    FILE * f;
 
     // field separator por extracting tokens is " "
     pch = strtok (str," ");
@@ -377,6 +378,23 @@ void do_commands(char * str)
 	case 'B':
 		list_basic(token[1]);
 		break;
+
+        case 'S':
+                f = fopen ("/tmp/a", "w" );
+                for (i=0x5D43 ; i < 0x7106 ; i++ )
+                   fputc(readbyte(i), f);
+                fclose(f);
+                break;
+                   
+        case 'L':
+                i = 0x5CCB;
+                f= fopen("/tmp/a", "r" );
+                while(!feof(f))
+                {
+                   writebyte(i++, fgetc(f) );
+                }
+                fclose(f);
+                break;
 
 	case '?':
                 show_help();
