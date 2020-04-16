@@ -2,6 +2,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #include "../QtSpecem/h/quirks.h"
 #include "../QtSpecem/z80core/env.h"
@@ -106,13 +107,30 @@ char tokens[][10] =
    "COPY"
 };
 
+// "Small integers have a special representation in which the first byte is 0, the second is a sign byte (0 or FFh) and the third and fourth are the integer in twos complement form, the less significant byte first."
+
+double zx2d(unsigned char *in) {
+	int e = in[0];
+	unsigned long m[] = {
+		in[1], in[2], in[3], in[4]
+	};
+	return e ?
+		(pow(2, e - 160)) * (
+			0x80000000
+			+ ((m[0] & 0x7f) << 24)
+			+ (m[1] << 16)
+			+ (m[2] << 8)
+			+ m[3]
+			) * ((in[1] & 0x80) ? -1.0 : 1.0) :
+		(in[1] ? -0x10000 : 0 ) + m[1] + (m[2] << 8);
+}
+
 // 2 byte line number (in big-endian format)
 // 2 byte length of text including NEWLINE (in little endian format, length "excludes" the line number and length, i.e. to skip between lines you add "length of text" +4 bytes.
 // text (BASIC tokens)
 // NEWLINE (0x76)
 // When a numeric constant is included in the text of a BASIC line, an ASCII string displaying the constant value will be inserted, followed by the token 0x7E, and the next 5 bytes are the value of the constant in floating point format.
 
-// "Small integers have a special representation in which the first byte is 0, the second is a sign byte (0 or FFh) and the third and fourth are the integer in twos complement form, the less significant byte first."
 
 void list_basic(char * s)
 {
@@ -164,7 +182,11 @@ void list_basic(char * s)
              // positive integers are often messed up in games
              if ( (readbyte(pos) == 0) && (readbyte(pos+1) == 0) )
              {
-                printf("[int:%d,$%04X]", readword(pos+2), readword(pos+2) );
+                printf("[int:%d,$%04X,addr:$%04X]", readword(pos+2), readword(pos+2), pos);
+             }
+             else
+             {
+                printf("[num:%lf,addr:$%04X]", zx2d(mem+pos), pos);
              }
 
 	     // skip 5 bytes of BASIC's internal number representation
