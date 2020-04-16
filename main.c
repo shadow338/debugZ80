@@ -72,6 +72,7 @@ void show_help(void)
    printf(" R YY XXXX  - Load 16-bit vars\n");
    printf(" R Y XX     - Load 8-bit vars\n");
    printf(" B          - List ZX BASIC program\n");
+   printf(" B list     - List ZX BASIC program w/ reveal numbers\n");
    printf(" B sysvars  - List system variables\n");
    printf(" B linebuffer - Print BASIC linebuffer\n");
    printf(" K XXXX XX  - Poke hexa addr with hexa byte\n");

@@ -156,7 +156,7 @@ void list_basic(char * s)
    int line, len, cnt_line = 0;
    static int pos = 0;
    unsigned char c, oldc;
-   int line_buffer = 0;
+   int line_buffer = 0, list = 0;
 
    if ( (s != NULL) && !strncmp(s, "sysvars", 7) )
    {
@@ -167,6 +167,11 @@ void list_basic(char * s)
    if ( (s != NULL) && !strncmp(s, "linebuffer", 10)  )
    {
       line_buffer = 1;
+   }
+
+   if ( (s != NULL) && !strncmp(s, "list", 4)  )
+   {
+      list = 1;
    }
    
    // PROG is the special system variable that tells us where the BASIC program starts in memory 
@@ -201,7 +206,8 @@ void list_basic(char * s)
        line += readbyte(pos++);
 
        // print memory position of start of line and line number
-       printf("[mem:$%04X]\n%d ", pos-2, line);
+       if (!list)
+          printf("[mem:$%04X]\n%d ", pos-2, line);
 
        len = readword(pos++);
        pos++;
@@ -218,6 +224,8 @@ void list_basic(char * s)
           // If we find the marker for integer/float internal representation
           if ( (c == 0x0E) && (oldc >='0' && oldc <= '9'))
           {
+             if (!list)
+             {
              // positive integers are often messed up in games
              if ( (readbyte(pos) == 0) && (readbyte(pos+1) == 0) )
              {
@@ -226,6 +234,7 @@ void list_basic(char * s)
              else
              {
                 printf("[num:%lf,addr:$%04X]", zx2d(mem+pos), pos);
+             }
              }
 
 	     // skip 5 bytes of BASIC's internal number representation
