@@ -109,6 +109,7 @@ char tokens[][10] =
 
 // "Small integers have a special representation in which the first byte is 0, the second is a sign byte (0 or FFh) and the third and fourth are the integer in twos complement form, the less significant byte first."
 
+// Routine: Daniel A. Nagy
 double zx2d(unsigned char *in) {
 	int e = in[0];
 	unsigned long m[] = {
@@ -124,6 +125,23 @@ double zx2d(unsigned char *in) {
 			) * ((in[1] & 0x80) ? -1.0 : 1.0) :
 		(in[1] ? -0x10000 : 0 ) + m[1] + (m[2] << 8);
 }
+
+// Routine: Slavo Labsky 
+//double zx2d(unsigned char *in) {
+//	int e = in[0];
+//	long m[] = {
+//		in[1], in[2], in[3], in[4]
+//	};
+//	return e ?
+//		 pow(2,e - 128) * ( .5
+//			+ ((m[0]&0x7F) / 256.0 )
+//			+ (m[1] / 65536.0 )
+//			+ (m[2] / 16777216.0 )
+//			+ (m[3] / 4294967296.0 )
+//			) * ((in[1] & 0x80) ? -1.0 : 1.0) :
+//
+//		(in[1] ? -0x10000 : 0 ) + m[1] + (m[2] << 8);
+//}
 
 // 2 byte line number (in big-endian format)
 // 2 byte length of text including NEWLINE (in little endian format, length "excludes" the line number and length, i.e. to skip between lines you add "length of text" +4 bytes.
