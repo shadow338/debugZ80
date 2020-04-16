@@ -152,15 +152,21 @@ double zx2d(unsigned char *in) {
 
 void list_basic(char * s)
 {
-   int prog, vars, nxtlin;
+   int prog, vars, nxtlin, e_line, worksp;
    int line, len, cnt_line = 0;
    static int pos = 0;
    unsigned char c, oldc;
+   int line_buffer = 0;
 
    if ( (s != NULL) && !strncmp(s, "sysvars", 7) )
    {
       show_system_vars();
       return;
+   }
+
+   if ( (s != NULL) && !strncmp(s, "linebuffer", 10)  )
+   {
+      line_buffer = 1;
    }
    
    // PROG is the special system variable that tells us where the BASIC program starts in memory 
@@ -170,15 +176,26 @@ void list_basic(char * s)
    vars   = readword(23627);
    // NEXTLIN points to the BASIC line being ran
    nxtlin = readword(23637);
+   // E_LINE points to temporary line buffer
+   e_line = readword(0x5C59);
+   // WORKSP to the end of it
+   worksp = readword(0x5C61);
 
-   printf("(PROG) %04X (VARS) %04X (NXTLIN) %04X\n\n", prog, vars, nxtlin);
+   printf("(PROG)   %04X (VARS)   %04X (NXTLIN) %04X\n", prog, vars, nxtlin);
+   printf("(E_LINE) %04X (WORKSP) %04X\n\n", e_line, worksp);
 
-   if ( !pos )
+   if ( !pos || pos > vars)
       pos = prog;
 
+   if (line_buffer)
+      pos = e_line;
+
    // show BASIC lines until reaching (VARS) or MAX_LINES
-   while ( (pos < vars) && (cnt_line != MAX_LINES ) )
+   while ( line_buffer?(pos < worksp - 1):(pos < vars) && (cnt_line != MAX_LINES ) )
    {
+
+       if (!line_buffer)
+       {
        // line is in high-endian format
        line = readbyte(pos++) * 256;
        line += readbyte(pos++);
@@ -188,6 +205,10 @@ void list_basic(char * s)
 
        len = readword(pos++);
        pos++;
+       }
+       else
+          len = worksp - e_line - 1;
+
        c = 0;
        while (--len > 0 )
        {
