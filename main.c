@@ -202,6 +202,7 @@ void register_value(char * reg, char * value)
        "E",
        "H",
        "L",
+       "IM",
        "" 
       };
 
@@ -265,6 +266,9 @@ void register_value(char * reg, char * value)
       case 14:
              L = addr_arg;
              break;
+      case 15:
+	     _IM = 1;
+	     break;
 
       default:
              printf("Invalid args\n");
