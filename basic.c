@@ -164,6 +164,18 @@ void list_basic(char * s)
       return;
    }
 
+   if ( (s != NULL) && !strncmp(s, "noautorun", 9) )
+   {
+      writebyte(0x08A1, 0x18);   // replace JR NZ, with JR
+      return;
+   }
+
+   if ( (s != NULL) && !strncmp(s, "autorun", 7) )
+   {
+      writebyte(0x08A1, 0x20); // write JR NZ,
+      return;
+   }
+
    if ( (s != NULL) && !strncmp(s, "linebuffer", 10)  )
    {
       line_buffer = 1;
