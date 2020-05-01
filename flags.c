@@ -4,7 +4,7 @@
  *
  */
 
-#include "../QtSpecem/z80core/env.h"
+#include "../QtSpecem/h/env.h"
 
 #undef build_F
 #undef read_F

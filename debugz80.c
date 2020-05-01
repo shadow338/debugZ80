@@ -12,7 +12,7 @@
 //#include <process.h>
 #include <string.h>
 
-#include "../QtSpecem/z80core/env.h"
+#include "../QtSpecem/h/env.h"
 
 /* Trace flag
 */

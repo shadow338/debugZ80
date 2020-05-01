@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "../QtSpecem/z80core/env.h"
+#include "../QtSpecem/h/env.h"
 #undef toupper
 
 static void Init_dissbl();

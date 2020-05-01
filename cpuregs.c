@@ -12,7 +12,7 @@
 //#include <alloc.h>
 
 #include "../QtSpecem/h/quirks.h"
-#include "../QtSpecem/z80core/env.h"
+#include "../QtSpecem/h/env.h"
 
 char board[16][29] =
 {

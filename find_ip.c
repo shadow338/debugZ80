@@ -7,8 +7,8 @@
 unsigned short draw_cpuregs();
 void list_basic(char * s);
 
-#include "../QtSpecem/z80core/z80.h"
-#include "../QtSpecem/z80core/iglobal.h"
+#include "../QtSpecem/h/z80.h"
+#include "../QtSpecem/h/iglobal.h"
 
 void print_hexdump(USHORT adress,int memory);
 

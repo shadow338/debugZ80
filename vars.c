@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "../QtSpecem/h/quirks.h"
-#include "../QtSpecem/z80core/env.h"
+#include "../QtSpecem/h/env.h"
 
 // array of system variables
 struct sys_vars {

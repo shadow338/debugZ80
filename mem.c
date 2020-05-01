@@ -5,7 +5,7 @@
  */
 
 //#include "../h/quirks.h"
-#include "../QtSpecem/z80core/env.h"
+#include "../QtSpecem/h/env.h"
 
 
 #if !defined(NDEBUG)

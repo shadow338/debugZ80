@@ -19,7 +19,7 @@
 #include <stdlib.h>
 
 #include "../QtSpecem/h/quirks.h"
-#include "../QtSpecem/z80core/env.h"
+#include "../QtSpecem/h/env.h"
 
 /*=========================================================================*
  *                            print_hexdump                                *
