@@ -71,12 +71,12 @@ void show_help(void)
    printf(" R            - Show registers\n");
    printf(" R YY XXXX    - Load 16-bit vars\n");
    printf(" R Y XX       - Load 8-bit vars\n");
-   printf(" B            - List ZX BASIC program\n");
-   printf(" B list       - List ZX BASIC program w/ reveal numbers\n");
-   printf(" B sysvars    - List system variables\n");
-   printf(" B linebuffer - Print BASIC linebuffer\n");
-   printf(" B noautorun  - Disable BASIC LOAD\"\" auto run\n");
-   printf(" B autorun    - enable auto run back\n");
+   printf(" L            - List ZX BASIC program\n");
+   printf(" L list       - List ZX BASIC program w/ reveal numbers\n");
+   printf(" L sysvars    - List system variables\n");
+   printf(" L linebuffer - Print BASIC linebuffer\n");
+   printf(" L noautorun  - Disable BASIC LOAD\"\" auto run\n");
+   printf(" L autorun    - enable auto run back\n");
    printf(" K XXXX XX    - Poke hexa addr with hexa byte\n");
    printf(" ?            - Help\n");
    printf(" ENTER        - Repeats last command\n");
@@ -383,7 +383,7 @@ void do_commands(char * str)
 		poke(token[1], token[2]);
                 break;
 
-	case 'B':
+	case 'L':
 		list_basic(token[1]);
 		break;
 
