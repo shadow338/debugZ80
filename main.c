@@ -394,7 +394,7 @@ void do_commands(char * str)
                 fclose(f);
                 break;
                    
-        case 'L':
+        case 'O':
                 i = 0x5CCB;
                 f= fopen("/tmp/a", "r" );
                 while(!feof(f))

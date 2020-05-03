@@ -63,11 +63,11 @@ Commands:
 
  R Y XX    - Load 8-bit vars
 
- B         - List ZX BASIC program
+ L         - List ZX BASIC program
 
- B sysvars - List system variables
+ L sysvars - List system variables
 
-K XXXX XX  - Poke addr with byte
+ K XXXX XX  - Poke addr with byte
 
  ?         - Help
 
