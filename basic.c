@@ -230,10 +230,14 @@ void list_basic(char * s)
           len = worksp - e_line - 1;
 
        c = 0;
-       while (--len > 0 )
+       // while (--len > 0 )
+       while (1)
        {
           oldc = c;
           c = readbyte(pos++);
+
+          if ( c == 0x0D )
+             break;
 
           // If we find the marker for integer/float internal representation
           if ( (c == 0x0E) && (oldc >='0' && oldc <= '9'))
@@ -256,8 +260,8 @@ void list_basic(char * s)
              len -= 5;
              
              // failsafe for a mal-formed BASIC line
-             if ( len < 0 )
-                break;
+             //if ( len < 0 )
+             //   break;
           }
           else
           {
@@ -276,7 +280,7 @@ void list_basic(char * s)
           }
        }
        
-       pos++; // point to next byte
+       //pos++; // point to next byte
        cnt_line++;
        printf("\n"); // end of BASIC line
    }  

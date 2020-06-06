@@ -64,6 +64,7 @@ void show_help(void)
    printf(" T [XXXX]     - Trace\n");
    printf(" P [XXXX]     - Proceed\n");
    printf(" E            - Execute until RET\n");
+   printf(" B XXXX       - Break point\n");
    printf(" G [XXXX]     - Go\n");
    printf(" Q            - Quit\n");
    printf(" U [XXXX]     - Dissassembly\n");
@@ -78,6 +79,8 @@ void show_help(void)
    printf(" L noautorun  - Disable BASIC LOAD\"\" auto run\n");
    printf(" L autorun    - enable auto run back\n");
    printf(" K XXXX XX    - Poke hexa addr with hexa byte\n");
+   printf(" W XXXX XXXX  - Write Spectrum memory into /tmp/a init len\n");
+   printf(" O XXXX       - Open-load /tmp/a into Spectrum memory address\n");
    printf(" ?            - Help\n");
    printf(" ENTER        - Repeats last command\n");
    printf("\n");
@@ -375,6 +378,9 @@ void do_commands(char * str)
                 unassemble(addr_arg);
 		break;
 
+        case 'B':
+                BreakPoint = daddr;
+
         case 'R':
                 register_value(token[1], token[2]);
                 break;
@@ -387,15 +393,22 @@ void do_commands(char * str)
 		list_basic(token[1]);
 		break;
 
-        case 'S':
+        case 'W':
+                {
+                unsigned int i, i_begin, i_end;
+
+                i_begin = strtol(token[1], NULL, 16);
+                i_end   = i_begin + strtol(token[2], NULL, 16);
+
                 f = fopen ("/tmp/a", "w" );
-                for (i=0x5D43 ; i < 0x7106 ; i++ )
+		for (i= i_begin ;  i <= i_end ; i++ )
                    fputc(readbyte(i), f);
                 fclose(f);
+                }
                 break;
                    
         case 'O':
-                i = 0x5CCB;
+                i = (int)strtol(token[1], NULL, 16);
                 f= fopen("/tmp/a", "r" );
                 while(!feof(f))
                 {
