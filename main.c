@@ -379,7 +379,8 @@ void do_commands(char * str)
 		break;
 
         case 'B':
-                BreakPoint = daddr;
+                BreakPoint = strtol(token[1], NULL, 16);;
+                break;
 
         case 'R':
                 register_value(token[1], token[2]);
@@ -401,7 +402,7 @@ void do_commands(char * str)
                 i_end   = i_begin + strtol(token[2], NULL, 16);
 
                 f = fopen ("/tmp/a", "w" );
-		for (i= i_begin ;  i <= i_end ; i++ )
+		for (i= i_begin ;  i < i_end ; i++ )
                    fputc(readbyte(i), f);
                 fclose(f);
                 }
