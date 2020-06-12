@@ -289,7 +289,8 @@ void list_basic(char * s)
                 }
                 else
                 {
-                   putchar('.');
+                   if (!list)
+                      putchar('.');
                    c=oldc;
                 }
              }
