@@ -223,7 +223,7 @@ void list_basic(char * s)
        line += readbyte(pos++);
 
        // print memory position of start of line and line number
-       if (!list && !show_addr)
+       if (!list && show_addr)
           printf("[mem:$%04X]\n%d ", pos-2, line);
        else
           printf("%d ", line);
