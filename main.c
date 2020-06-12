@@ -424,6 +424,10 @@ void do_commands(char * str)
                 {
                 int i;
                 char temp[200];
+                int status;
+                FILE * f;
+                char c;
+                unsigned address;
 
                 sprintf(temp, "echo \"ORG 0x%04X\\n", addr_arg);
                 for(i=2;token[i] != NULL; i++)
@@ -432,7 +436,22 @@ void do_commands(char * str)
                    strcat(temp, " "); 
                 }
                 strcat(temp, "\" | pasmo - /tmp/a ");
-                system(temp);
+                status=system(temp);
+                if (!status)
+                {
+                   address=addr_arg;
+                   f=fopen("/tmp/a", "r");
+                   if (f != NULL )
+                   {
+                   while(!feof(f))
+                   {
+                      c=fgetc(f);
+                      if(!feof(f))
+                      writebyte(address++, c);                      
+                   }
+                   printf("Next address: %04X\n", address);
+                   }
+                }
                 }
                 break; 
 
