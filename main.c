@@ -61,28 +61,30 @@ USHORT pSP;
 
 void show_help(void)
 {
-   printf(" T [XXXX]     - Trace\n");
-   printf(" P [XXXX]     - Proceed\n");
-   printf(" E            - Execute until RET\n");
-   printf(" B XXXX       - Break point\n");
-   printf(" G [XXXX]     - Go\n");
-   printf(" Q            - Quit\n");
-   printf(" U [XXXX]     - Dissassembly\n");
-   printf(" D [XXXX]     - Dump\n");
-   printf(" R            - Show registers\n");
-   printf(" R YY XXXX    - Load 16-bit vars\n");
-   printf(" R Y XX       - Load 8-bit vars\n");
-   printf(" L            - List ZX BASIC program\n");
-   printf(" L list       - List ZX BASIC program w/ reveal numbers\n");
-   printf(" L sysvars    - List system variables\n");
-   printf(" L linebuffer - Print BASIC linebuffer\n");
-   printf(" L noautorun  - Disable BASIC LOAD\"\" auto run\n");
-   printf(" L autorun    - enable auto run back\n");
-   printf(" K XXXX XX    - Poke hexa addr with hexa byte\n");
-   printf(" W XXXX XXXX  - Write Spectrum memory into /tmp/a init len\n");
-   printf(" O XXXX       - Open-load /tmp/a into Spectrum memory address\n");
-   printf(" ?            - Help\n");
-   printf(" ENTER        - Repeats last command\n");
+   printf(" T [XXXX]        - Trace\n");
+   printf(" P [XXXX]        - Proceed\n");
+   printf(" E               - Execute until RET\n");
+   printf(" B XXXX          - Break point\n");
+   printf(" G [XXXX]        - Go\n");
+   printf(" Q               - Quit\n");
+   printf(" U [XXXX]        - Dissassembly\n");
+   printf(" D [XXXX]        - Dump\n");
+   printf(" R               - Show registers\n");
+   printf(" R YY XXXX       - Load 16-bit vars\n");
+   printf(" R Y XX          - Load 8-bit vars\n");
+   printf(" L               - List ZX BASIC program\n");
+   printf(" L list          - List ZX BASIC program without reveal numbers\n");
+   printf(" L addr          - List ZX BASIC with addresses\n");
+   printf(" L sysvars       - List system variables\n");
+   printf(" L linebuffer    - Print BASIC linebuffer\n");
+   printf(" L noautorun     - Disable BASIC LOAD\"\" auto run\n");
+   printf(" L autorun       - enable auto run back\n");
+   printf(" K XXXX XX       - Poke hexa addr with hexa byte\n");
+   printf(" W XXXX XXXX     - Write Spectrum memory into /tmp/a init len\n");
+   printf(" O XXXX          - Open-load /tmp/a into Spectrum memory address\n");
+   printf(" A XXXX assembly - assembly into XXXX address\n");
+   printf(" ?               - Help\n");
+   printf(" ENTER           - Repeats last command\n");
    printf("\n");
    printf(" --- XXXX four hexa digits\n");
    printf(" --- XX   two  hexa digits\n");
@@ -418,6 +420,22 @@ void do_commands(char * str)
                 fclose(f);
                 break;
 
+        case 'A':
+                {
+                int i;
+                char temp[200];
+
+                sprintf(temp, "echo \"ORG 0x%04X\\n", addr_arg);
+                for(i=2;token[i] != NULL; i++)
+                {
+                   strcat(temp, token[i]);
+                   strcat(temp, " "); 
+                }
+                strcat(temp, "\" | pasmo - /tmp/a ");
+                system(temp);
+                }
+                break; 
+
 	case '?':
                 show_help();
 		break;
@@ -467,6 +485,7 @@ int main()
          if ( strcmp(string, "\n") )      // if not empty
          {
              strcpy(old_string, string);  // copy new command line
+             string[strlen(string)-1] = '\0';
              do_commands(string); 	  // execute it
          }
          else

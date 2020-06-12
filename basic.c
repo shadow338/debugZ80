@@ -156,7 +156,7 @@ void list_basic(char * s)
    int line, len, cnt_line = 0;
    static int pos = 0;
    unsigned char c, oldc;
-   int line_buffer = 0, list = 0;
+   int line_buffer = 0, list = 0, show_addr = 0;
 
    if ( (s != NULL) && !strncmp(s, "sysvars", 7) )
    {
@@ -184,6 +184,11 @@ void list_basic(char * s)
    if ( (s != NULL) && !strncmp(s, "list", 4)  )
    {
       list = 1;
+   }
+
+    if ( (s != NULL) && !strncmp(s, "addr", 4)  )
+   {
+      show_addr = 1;
    }
    
    // PROG is the special system variable that tells us where the BASIC program starts in memory 
@@ -218,7 +223,7 @@ void list_basic(char * s)
        line += readbyte(pos++);
 
        // print memory position of start of line and line number
-       if (!list)
+       if (!list && !show_addr)
           printf("[mem:$%04X]\n%d ", pos-2, line);
        else
           printf("%d ", line);
@@ -274,10 +279,11 @@ void list_basic(char * s)
                 // control characters
                 if (c >= 32)
                 {
-                   if (c == ':')
-                      printf("\n:[mem:$%04X]", pos);
-                   else
-                      putchar(c);
+                   putchar(c);
+                   
+                   if (show_addr && (c == ':'))
+                      printf("\n[mem:$%04X]", pos);
+
                    if (c == 32)
                       c=oldc;
                 }
