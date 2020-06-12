@@ -424,16 +424,29 @@ void do_commands(char * str)
                 {
                 int i;
                 char temp[200];
+                char string[100];
                 int status;
                 FILE * f;
                 char c;
                 unsigned address;
+                int first = 1;
+                int do_it_again;
 
-                sprintf(temp, "echo \"ORG 0x%04X\\n", addr_arg);
-                for(i=2;token[i] != NULL; i++)
+                do
                 {
-                   strcat(temp, token[i]);
-                   strcat(temp, " "); 
+                sprintf(temp, "echo \"ORG 0x%04X\\n", addr_arg);
+                if (first)
+                {
+                   for(i=2;token[i] != NULL; i++)
+                   {
+                      strcat(temp, token[i]);
+                      strcat(temp, " "); 
+                   }
+                   first=0;
+                }
+                else
+                {
+                   strcat(temp, string);
                 }
                 strcat(temp, "\" | pasmo - /tmp/a ");
                 status=system(temp);
@@ -443,15 +456,28 @@ void do_commands(char * str)
                    f=fopen("/tmp/a", "r");
                    if (f != NULL )
                    {
-                   while(!feof(f))
-                   {
-                      c=fgetc(f);
-                      if(!feof(f))
-                      writebyte(address++, c);                      
-                   }
-                   printf("Next address: %04X\n", address);
+                      while(!feof(f))
+                      {
+                         c=fgetc(f);
+                         if(!feof(f))
+                            writebyte(address++, c);                      
+                      }
+                      do_it_again = 0;
+                      if( address > (unsigned)addr_arg )
+                      {
+                         printf("- A %04X ", address);
+                         addr_arg = address;
+                         fgets (string, 100, stdin);   
+
+                         if ( strcmp(string, "\n") )      // if not empty
+                         {
+                            string[strlen(string)-1] = '\0'; 
+                            do_it_again = 1; 
+                         }
+                      }
                    }
                 }
+                } while (!status && do_it_again);
                 }
                 break; 
 
