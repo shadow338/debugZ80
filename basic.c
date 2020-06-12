@@ -273,9 +273,19 @@ void list_basic(char * s)
                 // bellow " ", we do not want to print unprintable
                 // control characters
                 if (c >= 32)
-                   putchar(c);
+                {
+                   if (c == ':')
+                      printf("\n:[mem:$%04X]", pos);
+                   else
+                      putchar(c);
+                   if (c == 32)
+                      c=oldc;
+                }
                 else
+                {
                    putchar('.');
+                   c=oldc;
+                }
              }
           }
        }
