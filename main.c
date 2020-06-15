@@ -61,7 +61,6 @@ USHORT pSP;
 
 void show_help(void)
 {
-   printf(" N path             - Change active directory\n");
    printf(" T [XXXX]           - Trace\n");
    printf(" P [XXXX]           - Proceed\n");
    printf(" E                  - Execute until RET\n");
@@ -84,6 +83,7 @@ void show_help(void)
    printf(" W XXXX XXXX [file] - Write Spectrum memory into /tmp/a init len\n");
    printf(" O XXXX [file]      - Open-load /tmp/a into Spectrum memory address\n");
    printf(" A XXXX assembly    - assembly into XXXX address\n");
+   printf(" N path             - Change active directory\n");
    printf(" ?                  - Help\n");
    printf(" ENTER              - Repeats last command\n");
    printf("\n");
