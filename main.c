@@ -404,14 +404,36 @@ void do_commands(char * str)
         case 'W':
                 {
                 unsigned int i, i_begin, i_end;
+                int tap = 0;
 
                 i_begin = strtol(token[1], NULL, 16);
                 i_end   = i_begin + strtol(token[2], NULL, 16);
 
                 if ( token[3] != NULL )
-                   f = fopen (token[3], "w" );
+                {
+                   if ( ( strlen(token[3] ) > 5 ) )
+                   {
+                      char * p = token[3] + strlen(token[3]) -4;
+                    
+                      if ( !strcasecmp(p, ".tap") )
+                         tap = 1;
+                   }
+
+                   if (tap == 1)
+                   {
+                      char s[300];
+
+                      f = fopen ("/tmp/a", "w" );
+                      sprintf(s, "file2tap /a/tmp %s", token[3]);
+                      system(s);
+                   }
+                   else
+                      f = fopen (token[3], "w" );
+                }
                 else
+                {
                    f = fopen ("/tmp/a", "w" );
+                }
 
 		for (i= i_begin ;  i < i_end ; i++ )
                    fputc(readbyte(i), f);
