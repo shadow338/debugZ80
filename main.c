@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-
+#include <unistd.h>
 
 unsigned short draw_cpuregs();
 void list_basic(char * s);
@@ -61,6 +61,7 @@ USHORT pSP;
 
 void show_help(void)
 {
+   printf(" N path             - Change active directory\n");
    printf(" T [XXXX]           - Trace\n");
    printf(" P [XXXX]           - Proceed\n");
    printf(" E                  - Execute until RET\n");
@@ -332,6 +333,10 @@ void do_commands(char * str)
     command = toupper(*token[0]);
     switch(command)
     {
+        case 'N':
+                if ( token[0] != NULL )
+                   chdir(token[0]);
+                break;
         case 'T':	// Trace
                 if ( addr_arg != -1 )
                    PC = addr_arg;
