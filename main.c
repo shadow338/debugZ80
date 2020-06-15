@@ -411,22 +411,16 @@ void do_commands(char * str)
 
                 if ( token[3] != NULL )
                 {
-                   if ( ( strlen(token[3] ) > 5 ) )
+                   if ( ( strlen(token[3] ) > 4 ) )
                    {
-                      char * p = token[3] + strlen(token[3]) -4;
-                    
+                      char * p = token[3] + (strlen(token[3]) -4);
+                   
                       if ( !strcasecmp(p, ".tap") )
                          tap = 1;
                    }
 
                    if (tap == 1)
-                   {
-                      char s[300];
-
                       f = fopen ("/tmp/a", "w" );
-                      sprintf(s, "file2tap /a/tmp %s", token[3]);
-                      system(s);
-                   }
                    else
                       f = fopen (token[3], "w" );
                 }
@@ -438,6 +432,15 @@ void do_commands(char * str)
 		for (i= i_begin ;  i < i_end ; i++ )
                    fputc(readbyte(i), f);
                 fclose(f);
+
+                if (tap == 1)
+                {
+                    char s[300];
+
+                    sprintf(s, "file2tap /tmp/a %s %d", token[3], i_begin);
+                    printf("\n%s\n", s);
+                    system(s);
+                }
                 }
                 break;
                    
