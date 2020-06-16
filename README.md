@@ -18,11 +18,14 @@ FEATURES
 
 The trace/running logic is on debugz80 side. It is always slower than being on the emulator side.
 
+Breakpoints.
+
+BASIC lister.
+
+
 TO DO
 
 Refactor code, create subroutines. PoC with poor quality code.
-
-Breakpoints.
 
 Maybe addopting the =XXXX syntax of DEBUG.EXE.
 
