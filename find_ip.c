@@ -20,6 +20,7 @@ extern char ** label_table;
 
 unsigned char * attach_speccy_shared_ram(void);
 unsigned char * attach_speccy_shared_vars(void);
+void dealloc_shared(unsigned char * mem, unsigned char * vars);
 
 unsigned char        bFlashOn = 1;  /* Flash on or off      */
 
@@ -59,11 +60,18 @@ USHORT old_SP;
 USHORT next_PC;
 USHORT pSP;
 
+void destroy_shm_client()
+{
+   dealloc_shared(mem, vars);
+}
+
 void init_shm_client()
 {
 
    mem = attach_speccy_shared_ram();
    vars = attach_speccy_shared_vars();
+
+   atexit(destroy_shm_client);
 
    Z80vars  = (struct Z80vars *)  vars;
    Z80Regs  = (union Z80Regs *)   vars + sizeof(struct Z80vars);

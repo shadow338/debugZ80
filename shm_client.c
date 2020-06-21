@@ -12,7 +12,7 @@
 
 #define SHMSZ     65536
 #define SHMVARS sizeof(struct Z80vars)+(sizeof(union Z80Regs)*2)+sizeof(struct CPU_flags) \
-                +sizeof(union Z80IX)+sizeof(union Z80IY)
+                +sizeof(union Z80IX)+sizeof(union Z80IY)+1
 
 unsigned char * attach_speccy_shared_ram()
 {
@@ -76,9 +76,19 @@ unsigned char * attach_speccy_shared_vars()
         exit(1);
     }
     
+    // counts number of "shm clients"
+    (*(shm+SHMVARS-1))++;
     /* 
      * Now read what the server put in the memory.
      */ 
     return shm;
 }
 
+void dealloc_shared(unsigned char * mem, unsigned char * vars)
+{
+   if ( (--(*(vars+SHMVARS-1))) == 0 )
+   {
+      shmdt(vars);
+      shmdt(mem);
+   }
+}
