@@ -83,12 +83,12 @@ unsigned short draw_cpuregs()
 
    /* put Z80 var's in array to build window */
 
-   *(board[1] + 12) = '0' + (Z80_S && (UCHAR)1);
-   *(board[2] + 12) = '0' + (Z80_Z && (UCHAR)1);
-   *(board[3] + 12) = '0' + (Z80_H && (UCHAR)1);
-   *(board[4] + 12) = '0' + (Z80_P && (UCHAR)1);
-   *(board[5] + 12) = '0' + (Z80_N && (UCHAR)1);
-   *(board[6] + 12) = '0' + (Z80_C && (UCHAR)1);
+   *(board[1] + 12) = '0' + (Z80_S != 0);
+   *(board[2] + 12) = '0' + (Z80_Z != 0);
+   *(board[3] + 12) = '0' + (Z80_H != 0);
+   *(board[4] + 12) = '0' + (Z80_P != 0);
+   *(board[5] + 12) = '0' + (Z80_N != 0);
+   *(board[6] + 12) = '0' + (Z80_C != 0);
    *(board[1] + 26) = '0' + ((F2 & (UCHAR)0x80) && (UCHAR)1);
    *(board[2] + 26) = '0' + ((F2 & (UCHAR)0x40) && (UCHAR)1);
    *(board[3] + 26) = '0' + ((F2 & (UCHAR)0x10) && (UCHAR)1);

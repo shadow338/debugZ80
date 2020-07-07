@@ -571,6 +571,7 @@ int main()
       // if not in debugging mode
       if (!proceed_mode && !return_mode)
       {
+         // draw_cpuregs();
          printf("- ");                    // print prompt
 
          fgets (string, 255, stdin);      // wait for command line
