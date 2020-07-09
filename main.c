@@ -457,7 +457,11 @@ void do_commands(char * str)
                    f= fopen("/tmp/a", "r" );
                 while(!feof(f))
                 {
-                   writebyte(i++, fgetc(f) );
+                   char c;
+                   
+                   c=fgetc(f);
+                   if (!feof(f))
+                      writebyte(i++, c );
                 }
                 fclose(f);
                 break;
