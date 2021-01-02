@@ -616,7 +616,10 @@ int main()
                   if ( ( PC != next_PC ) && (SP < old_SP ) )
                      TraceOn = 3;
                   else
+                  {
                      proceed_mode = 0; // disable proceed mode
+                     draw_cpuregs();
+                  }
             }
          }
 
