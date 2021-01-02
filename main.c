@@ -345,16 +345,16 @@ void do_commands(char * str)
                 addr = PC;
                 build_F();
 		TraceOn = 3;
-                draw_cpuregs();
                 {
                    volatile UCHAR Trace;
-                   
+
                    while(1)
                    {
                       Trace = TraceOn;
                       if (Trace != 3)
                          break;
-		      sleep(1);
+                      // need it to overcome compiler optimizations
+		      printf("");
                    }
                 }
                 draw_cpuregs();
