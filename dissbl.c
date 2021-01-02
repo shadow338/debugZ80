@@ -236,7 +236,7 @@ static void Init_labels()
 
      tmp = (int)strtol(buffer, NULL, 16);
 
-     if (!(*(label_table + tmp) = malloc(str_len)-pos+1) )
+     if (!(*(label_table + tmp) = malloc(str_len-pos+1)))
             Panic("Insuficient memory");
      strcpy(*(label_table + tmp), buffer+pos);
    }
