@@ -344,8 +344,20 @@ void do_commands(char * str)
                    PC = addr_arg;
                 addr = PC;
                 build_F();
+		TraceOn = 3;
                 draw_cpuregs();
-                TraceOn = 3;
+                {
+                   volatile UCHAR Trace;
+                   
+                   while(1)
+                   {
+                      Trace = TraceOn;
+                      if (Trace != 3)
+                         break;
+		      sleep(1);
+                   }
+                }
+                draw_cpuregs();
 		break;
         case 'P':	// Proceed
                if ( addr_arg != -1 )
