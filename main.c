@@ -175,8 +175,9 @@ void unassemble(int addr_arg)
          {
             char * z = s +1;          // point to disassembly string
 
-            while ( z < p )           // print it, up to find hexa number
+            while ( z < (p-1) )           // print it, up to find hexa number
                putchar(*z++);
+            z++;
             printf("%s", var_label);       // print label
             z += 4;		      // and skip hex string
             printf("%s", z);          // print the rest of the string

@@ -216,7 +216,7 @@ C3	JP	w
 C4	CALL	NZ,w
 C5	PUSH	BC
 C6	ADD	A,b
-C7	RST	00
+C7	RST	$00
 C8	RET	Z
 C9	RET
 CA	JP	Z,w
@@ -224,7 +224,7 @@ CA	JP	Z,w
 CC	CALL	Z,w
 CD	CALL	w
 CE	ADC	A,b
-CF	RST	08
+CF	RST	$08
 D0	RET	NC
 D1	POP	DE
 D2	JP	NC,w
@@ -232,7 +232,7 @@ D3	OUT	(b),A
 D4	CALL	NC,w
 D5	PUSH	DE
 D6	SUB	b
-D7	RST	10
+D7	RST	$10
 D8	RET	C
 D9	EXX
 DA	JP	C,w
@@ -240,7 +240,7 @@ DB	IN A,(b)
 DC	CALL	C,w
 ; ******** DD nao tem string
 DE	SBC	A,b
-DF	RST	18
+DF	RST	$18
 E0	RET	PO
 E1	POP	hl
 E2	JP	PO,w
@@ -248,7 +248,7 @@ E3	EX	(SP),hl
 E4	CALL	PO,w
 E5	PUSH	hl
 E6	AND	b
-E7	RST	20
+E7	RST	$20
 E8	RET	PE
 E9	JP	(hl)
 EA	JP	PE,w
@@ -256,7 +256,7 @@ EB	EX	DE,hl
 EC	CALL	PE,w
 ; ******** ED nao tem string
 EE	XOR	b
-EF	RST	28
+EF	RST	$28
 F0	RET	P
 F1	POP	AF
 F2	JP	P,w
@@ -264,7 +264,7 @@ F3	DI
 F4	CALL	P,w
 F5	PUSH	AF
 F6	OR	b
-F7	RST	30
+F7	RST	$30
 F8	RET	M
 F9	LD	SP,hl
 FA	JP	M,w
@@ -272,7 +272,7 @@ FB	EI
 FC	CALL	M,w
 ; ******** FD nao tem string
 FE	CP	b
-FF	RST	38
+FF	RST	$38
 ;=======================================================================
 ;                       *** extensao CB ***
 ;=======================================================================

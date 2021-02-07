@@ -92,13 +92,14 @@ char * s, *t;
                    if(tmp > (UCHAR)0x80)
                       tmp = 256 - tmp; /* tmp = NEG tmp */
                  }
-                 sprintf(s++, "%02X", tmp);
+                 sprintf(s++, "$%02X", tmp);
+		 s++;
                  flag = 0;
                break;
 
             case 'w': // word
-                 sprintf(s, "%04X", Dnextword());
-                 s += 3;
+                 sprintf(s, "$%04X", Dnextword());
+                 s += 4;
                break;
 
             case 'd': // displacement (relative jump -- [ PC + signed byte])
@@ -106,8 +107,8 @@ char * s, *t;
                     USHORT tmp;
 
                     tmp = IP_loc + 1;
-                    sprintf(s, "%04X", tmp+ucharToUshort(Dnextbyte()) );
-                    s += 3;
+                    sprintf(s, "$%04X", tmp+ucharToUshort(Dnextbyte()) );
+                    s += 4;
                  }
                break;
 
