@@ -70,7 +70,9 @@ void show_help(void)
    printf(" B 1BD1              - Break point - next BASIC line\n");
    printf(" B 1B76              - Break point - STMT_RET\n");
    printf(" B 1BB3              - Break point - LINE END\n");
-   printf(" B 34BB              - Break point - USR no\n");
+   printf(" B 34BB              - Break point - USR no (end)\n");
+   printf(" B 0556              - Break point - LD_BYTES (start)\n");
+   printf(" B 05E2              - Break point - LD_BYTES (end)\n");
    printf(" G [XXXX]            - Go\n");
    printf(" Q                   - Quit\n");
    printf(" U [XXXX]            - Dissassembly\n");
