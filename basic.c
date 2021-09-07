@@ -170,6 +170,16 @@ void list_basic(char * s)
       return;
    }
 
+   if ( (s != NULL) && !strncmp(s, "noheaders", 9) )
+   {
+      *(mem+0x0792) = 0x00;   // replace PO_MSG, with NOP
+      *(mem+0x0793) = 0x00;   // 
+      *(mem+0x0794) = 0x00;   // 
+      *(mem+0x07AD) = 0x00;
+      *(mem+0x07B6) = 0x00;
+      return;
+   }
+
    if ( (s != NULL) && !strncmp(s, "autorun", 7) )
    {
       *(mem+0x08A1) = 0x20; // write JR NZ,

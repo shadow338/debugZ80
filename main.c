@@ -62,10 +62,15 @@ USHORT pSP;
 
 void show_help(void)
 {
+   printf(" H 99999             - Convert decimal number to hexa\n");
    printf(" T [XXXX]            - Trace\n");
    printf(" P [XXXX]            - Proceed\n");
    printf(" E                   - Execute until RET\n");
    printf(" B XXXX              - Break point\n");
+   printf(" B 1BD1              - Break point - next BASIC line\n");
+   printf(" B 1B76              - Break point - STMT_RET\n");
+   printf(" B 1BB3              - Break point - LINE END\n");
+   printf(" B 34BB              - Break point - USR no\n");
    printf(" G [XXXX]            - Go\n");
    printf(" Q                   - Quit\n");
    printf(" U [XXXX]            - Dissassembly\n");
@@ -78,6 +83,7 @@ void show_help(void)
    printf(" L addr              - List ZX BASIC with addresses\n");
    printf(" L sysvars           - List system variables\n");
    printf(" L linebuffer        - Print BASIC linebuffer\n");
+   printf(" L noheaders         - Disable loading header printing\n");
    printf(" L noautorun         - Disable BASIC LOAD\"\" auto run\n");
    printf(" L autorun           - enable auto run back\n");
    printf(" K XXXX XX           - Poke hexa addr with hexa byte\n");
@@ -400,6 +406,10 @@ void do_commands(char * str)
                 unassemble(addr_arg);
 		break;
 
+	case 'H':
+                printf("%X\n\n", atoi(token[1]) );
+                break;
+
         case 'B':
                 BreakPoint = strtol(token[1], NULL, 16);;
                 break;
@@ -474,7 +484,8 @@ void do_commands(char * str)
                    
                    c=fgetc(f);
                    if (!feof(f))
-                      writebyte(i++, c );
+                      *(mem+i++)=c;
+                      //writebyte(i++, c );
                 }
                 fclose(f);
                 break;
@@ -519,7 +530,8 @@ void do_commands(char * str)
                       {
                          c=fgetc(f);
                          if(!feof(f))
-                            writebyte(address++, c);                      
+                            /* writebyte(address++, c); */
+                            *(mem+address++)=c;                   
                       }
                       do_it_again = 0;
                       if( address > (unsigned)addr_arg )
