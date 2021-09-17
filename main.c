@@ -86,6 +86,7 @@ void show_help(void)
    printf(" L sysvars           - List system variables\n");
    printf(" L linebuffer        - Print BASIC linebuffer\n");
    printf(" L noheaders         - Disable loading header printing\n");
+   printf(" L nosaldret         - Disable LD_BYTES falling into SA_LD_RET\n");
    printf(" L noautorun         - Disable BASIC LOAD\"\" auto run\n");
    printf(" L autorun           - enable auto run back\n");
    printf(" K XXXX XX           - Poke hexa addr with hexa byte\n");

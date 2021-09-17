@@ -180,6 +180,15 @@ void list_basic(char * s)
       return;
    }
 
+   if ( (s != NULL) && !strncmp(s, "nosaldret", 9) )
+   {
+      *(mem+0x055E) = 0;   // delete LD HL,$053F
+      *(mem+0x055F) = 0;   // 
+      *(mem+0x0560) = 0;   // 
+      *(mem+0x0561) = 0;   // delete PUSH HL
+      return;
+   }
+
    if ( (s != NULL) && !strncmp(s, "autorun", 7) )
    {
       *(mem+0x08A1) = 0x20; // write JR NZ,
