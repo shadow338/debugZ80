@@ -85,35 +85,33 @@ struct sys_vars {
 { 0,0,"","" }
 };
 
-void show_system_vars()
-{
-   int i;
-   int j;
-   int pos;
+void show_system_vars() {
+   int i, j, pos;
 
-   for( i=0; sys_vars[i].addr != 0 ; i++ )
-   {
-      printf("%04X %-7s ", sys_vars[i].addr, sys_vars[i].name );
+   // Loop through system variables
+   for (i = 0; sys_vars[i].addr != 0; i++) {
+      printf("%04X %-7s ", sys_vars[i].addr, sys_vars[i].name);
 
-      // handling of system variables display, depending on size
-      switch( sys_vars[i].n_bytes )
-      {
-         case 1: // 1 byte
-                printf("  %02X ", readbyte(sys_vars[i].addr) );
-                break;
+      // Handle display of system variables based on size
+      switch (sys_vars[i].n_bytes) {
+         case 1:  // 1 byte
+            printf("  %02X ", readbyte(sys_vars[i].addr));
+            break;
 
-         case 2: // 1 word
-                printf("%04X ", readword(sys_vars[i].addr) );
-                break;
-	 
-         default: // several bytes
-                pos = sys_vars[i].addr; 
-                for(j = 0 ; j < sys_vars[i].n_bytes ; j++ )
-                   printf("%02X ", readbyte(pos) );
-                break;
+         case 2:  // 2 bytes (word)
+            printf("%04X ", readword(sys_vars[i].addr));
+            break;
+
+         default:  // Multiple bytes
+            pos = sys_vars[i].addr;
+            for (j = 0; j < sys_vars[i].n_bytes; j++) {
+               printf("%02X ", readbyte(pos++));
+            }
+            break;
       }
 
-      printf("%s\n", sys_vars[i].desc );
+      // Print description
+      printf("%s\n", sys_vars[i].desc);
    }
 }
 

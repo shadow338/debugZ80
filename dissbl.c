@@ -55,8 +55,7 @@ static USHORT Dnextword()
 /*=========================================================================*
  *                            my_strcpy                                    *
  *=========================================================================*/
-static void my_strcpy(s, t)
-char * s, *t;
+static void my_strcpy(char * s, char * t)
 {
    static char *hilo[] = { "HL", "IX", "IY" };
    static char *high[] = { "H",  "Ix",  "Iy"  };
@@ -204,8 +203,7 @@ char * ldissbl(USHORT adress)
 /*=========================================================================*
  *                            Hextodec                                     *
  *=========================================================================*/
-unsigned short hextodec(s)
-char * s;
+unsigned short hextodec(char * s)
 {
    unsigned char v1, v2;
 
@@ -214,10 +212,10 @@ char * s;
    return((((unsigned short)v1)<<4)+v2);
 }
 
-static void Init_labels()
+static void Init_labels(void)
 {
    FILE * stream;
-   unsigned short line = 0, str_len, pos = 5, tmp;
+   unsigned short str_len, pos = 5, tmp;
    char buffer[255];
 
    // alloc label pointers for the 64K addresses
@@ -231,7 +229,6 @@ static void Init_labels()
    }
    while(fgets(buffer, 199, stream))
    {  
-     line++;
      str_len=strlen(buffer);
      buffer[--str_len] = '\0';
 
